@@ -4,7 +4,7 @@ const copyButton = document.getElementById("copy-styles");
 const ranges = document.querySelectorAll(".settings input");
 const selectElement = document.getElementById("border-style");
 
-selectElement.addEventListener("change", generatorStyles)
+selectElement.addEventListener("change", generatorStyles);
 ranges.forEach((slider) => {
     slider.addEventListener("input", generatorStyles);
 });
@@ -45,11 +45,6 @@ function generatorStyles() {
     preview.style.backgroundColor = boxColor;
     preview.style.border = borderColor;
     styles.textContent = `height:${height}px;\nwidth:${width}px;\nbackground-color:${boxColor};\nborder:${borderThickness}px ${selectedValue} ${hexToRgba(borColor,borderOpacity)};\nborder-radius: ${borderRadius}px;\nbox-shadow: ${boxShadow};`;
-
-    selectElement.addEventListener("change", (event) => {
-        const selectedValue = event.target.value;
-        preview.style.borderStyle = selectedValue;
-    });
 }
 
 function hexToRgba(hex, opacity) {
