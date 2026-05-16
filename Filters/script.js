@@ -35,7 +35,7 @@ function updateFilters() {
 
     image.style.filter = filterString;
 
-    styles.textContent = `filter: blur(${blur});\n\tbrightness(${brightness});\n\topacity(${opacity});\n\tcontrast(${contrast});\n\tgrayscale(${grayscale});\n\thue-rotate(${hueRotate});\n\tinvert(${invert});\n\tsaturate(${saturate});\n\tsepia(${sepia});`;
+    styles.textContent = `filter: blur(${blur}) brightness(${brightness}) opacity(${opacity}) contrast(${contrast}) grayscale(${grayscale}) hue-rotate(${hueRotate}) invert(${invert}) saturate(${saturate}) sepia(${sepia});`;
 }
 
 function copyStyles() {
