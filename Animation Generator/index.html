@@ -8,6 +8,183 @@
     <title>Animation Generator</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .page-footer {
+            width: min(1120px, calc(100% - 2rem));
+            margin: 1.5rem auto 1rem;
+            padding: 1rem 1.25rem;
+            border-radius: 999px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            background: rgba(255, 255, 255, 0.85);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        .social-links {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .social-link {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #800000, #b22222);
+            color: #fff;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .social-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 18px rgba(128, 0, 0, 0.25);
+        }
+
+        .social-link::after {
+            content: attr(data-label);
+            position: absolute;
+            bottom: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%) translateY(4px);
+            padding: 0.35rem 0.6rem;
+            border-radius: 999px;
+            background: #222;
+            color: #fff;
+            font-size: 0.72rem;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            pointer-events: none;
+        }
+
+        .social-link:hover::after {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .footer-text {
+            font-weight: 600;
+            color: #4a4a4a;
+        }
+
+        .footer-name {
+            font-weight: 700;
+            color: #800000;
+        }
+
+        .help-fab {
+            position: fixed;
+            right: 1.25rem;
+            bottom: 1.25rem;
+            left: auto;
+            top: auto;
+            width: 52px;
+            height: 52px;
+            border: none;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #800000, #b22222);
+            color: #fff;
+            font-size: 1.4rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 10px 24px rgba(128, 0, 0, 0.25);
+            z-index: 2200;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .help-fab:hover {
+            transform: scale(1.04);
+        }
+
+        .help-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.55);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            z-index: 2300;
+            overflow-y: auto;
+        }
+
+        .help-modal.active {
+            display: flex;
+        }
+
+        .help-modal-content {
+            width: min(92vw, 520px);
+            max-height: 90vh;
+            overflow-y: auto;
+            background: #fff;
+            border-radius: 20px;
+            padding: 1.25rem;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+        }
+
+        .help-modal-content h2 {
+            margin: 0 0 0.6rem;
+            color: #800000;
+            font-size: 1.2rem;
+        }
+
+        .help-modal-content ol {
+            margin: 0.5rem 0 0;
+            padding-left: 1.1rem;
+            color: #4a4a4a;
+        }
+
+        .help-meaning {
+            margin-top: 0.8rem;
+            padding: 0.8rem;
+            border-radius: 12px;
+            background: #fff7f7;
+            border: 1px solid rgba(128, 0, 0, 0.14);
+            color: #333;
+            font-size: 0.96rem;
+            line-height: 1.5;
+        }
+
+        .help-meaning ul {
+            margin: 0.3rem 0 0;
+            padding-left: 1rem;
+        }
+
+        .help-meaning li + li {
+            margin-top: 0.35rem;
+        }
+
+        .help-close {
+            margin-top: 1rem;
+            border: none;
+            border-radius: 999px;
+            padding: 0.7rem 1rem;
+            background: #800000;
+            color: #fff;
+            cursor: pointer;
+            font-weight: 600;
+        }
+    </style>
 </head>
 
 <body>
@@ -20,6 +197,34 @@
                 <h1 class="nav-title"><i class="bi bi-braces-asterisk"></i>Animation Generator</h1>
             </div>
         </nav>
+        <button class="help-fab" id="helpBtn" aria-label="Open help">?</button>
+        <div class="help-modal" id="helpModal">
+            <div class="help-modal-content">
+                <h2><i class="bi bi-play-circle"></i> How to use this page</h2>
+                <ol>
+                    <li>Enter an animation name and timing details in the controls.</li>
+                    <li>Choose keyframe properties and values to build your animation.</li>
+                    <li>Review the generated CSS and copy it for your project.</li>
+                </ol>
+                <div class="help-meaning">
+                    <strong>How to use this page:</strong>
+                    <ul>
+                        <li><strong>Animation Name</strong> (<code>animation-name</code>): gives the animation a custom identifier so it can be referenced in CSS.</li>
+                        <li><strong>Animation Duration</strong> (<code>animation-duration</code>): sets how long one cycle of the animation lasts.</li>
+                        <li><strong>Animation Timing Function</strong> (<code>animation-timing-function</code>): controls the speed curve, making the motion start fast, slow, or smoothly.</li>
+                        <li><strong>Animation Iteration Count</strong> (<code>animation-iteration-count</code>): defines how many times the animation repeats.</li>
+                        <li><strong>Animation Direction</strong> (<code>animation-direction</code>): determines whether the animation runs forward, backward, or alternates.</li>
+                        <li><strong>Animation Fill Mode</strong> (<code>animation-fill-mode</code>): defines how the element looks before and after the animation plays.</li>
+                        <li><strong>Transform</strong> (<code>transform</code>): changes the element's position, scale, rotate, or skew.</li>
+                        <li><strong>Opacity</strong> (<code>opacity</code>): makes the element fade in or out.</li>
+                        <li><strong>Background Color</strong> (<code>background-color</code>): changes the element's background during the animation.</li>
+                        <li><strong>Left Position</strong> (<code>left</code>): moves the element horizontally within its container.</li>
+                        <li><strong>Top Position</strong> (<code>top</code>): moves the element vertically within its container.</li>
+                    </ul>
+                </div>
+                <button class="help-close" id="helpClose">OK, Understood!</button>
+            </div>
+        </div>
         <div class="content-container">
             <div class="preview-box">
                 <div class="animated-object">
@@ -101,8 +306,41 @@
         <div class="keyframe-list"></div>
     </div>
 
+    <footer class="page-footer">
+        <div class="social-links">
+            <a class="social-link" href="https://www.linkedin.com/in/vijeth-shetty-334s/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" data-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+            <a class="social-link" href="mailto:vijethshetty334@gmail.com" aria-label="Email" data-label="Email"><i class="bi bi-envelope-fill"></i></a>
+            <a class="social-link" href="https://github.com/vijeth-s/" target="_blank" rel="noopener noreferrer" aria-label="GitHub" data-label="GitHub"><i class="bi bi-github"></i></a>
+            <a class="social-link" href="https://github.com/vijeth-s/CSS-PlayGround" target="_blank" rel="noopener noreferrer" aria-label="Repo" data-label="Repo"><i class="bi bi-box-seam"></i></a>
+        </div>
+        <span class="footer-text"><span class="footer-name">Vijeth</span> © 2026</span>
+    </footer>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="script.js"></script>
+    <script>
+        const helpBtn = document.getElementById('helpBtn');
+        const helpModal = document.getElementById('helpModal');
+        const helpClose = document.getElementById('helpClose');
+
+        // Keep these overlays outside the styled page container so `fixed`
+        // positioning is always relative to the viewport while scrolling.
+        document.body.append(helpBtn, helpModal);
+
+        helpBtn.addEventListener('click', () => {
+            helpModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        helpClose.addEventListener('click', () => {
+            helpModal.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+        helpModal.addEventListener('click', (event) => {
+            if (event.target === helpModal) {
+                helpModal.classList.remove('active');
+            }
+        });
+    </script>
 </body>
 
 </html>
