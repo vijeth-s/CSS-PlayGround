@@ -10,6 +10,201 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .page-footer {
+            width: min(1120px, calc(100% - 2rem));
+            margin: 2rem auto 1.5rem;
+            padding: 1rem 1.25rem;
+            border-radius: 999px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            backdrop-filter: blur(8px);
+        }
+
+        .social-links {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .social-link {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #800000, #b22222);
+            color: #fff;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .social-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 18px rgba(128, 0, 0, 0.25);
+        }
+
+        .social-link::after {
+            content: attr(data-label);
+            position: absolute;
+            bottom: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%) translateY(4px);
+            padding: 0.35rem 0.6rem;
+            border-radius: 999px;
+            background: #222;
+            color: #fff;
+            font-size: 0.72rem;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            pointer-events: none;
+        }
+
+        .social-link:hover::after {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .footer-text {
+            font-weight: 600;
+            color: #4a4a4a;
+        }
+
+        .footer-name {
+            font-weight: 700;
+            color: #800000;
+        }
+
+        .help-fab {
+            position: fixed;
+            right: 1.25rem;
+            bottom: 1.25rem;
+            left: auto;
+            top: auto;
+            width: 52px;
+            height: 52px;
+            border: none;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #800000, #b22222);
+            color: #fff;
+            font-size: 1.4rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 10px 24px rgba(128, 0, 0, 0.25);
+            z-index: 2200;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .help-hint {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin: 0.2rem 0 1rem;
+            padding: 0.7rem 1rem;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.88);
+            color: #5f1111;
+            font-weight: 600;
+            box-shadow: 0 8px 22px rgba(24, 39, 75, 0.08);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(139, 30, 30, 0.08);
+        }
+
+        .help-fab:hover {
+            transform: scale(1.04);
+        }
+
+        .help-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.55);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            z-index: 2300;
+            overflow-y: auto;
+        }
+
+        .help-modal.active {
+            display: flex;
+        }
+
+        .help-modal-content {
+            width: min(92vw, 520px);
+            max-height: 90vh;
+            overflow-y: auto;
+            background: linear-gradient(135deg, #ffffff, #f9fbff);
+            border-radius: 24px;
+            padding: 1.25rem;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
+            border: 1px solid rgba(139, 30, 30, 0.08);
+        }
+
+        .help-modal-content h2 {
+            margin: 0 0 0.6rem;
+            color: #800000;
+            font-size: 1.2rem;
+        }
+
+        .help-modal-content p,
+        .help-modal-content li {
+            color: #4a4a4a;
+        }
+
+        .help-modal-content ol {
+            margin: 0.5rem 0 0;
+            padding-left: 1.1rem;
+        }
+
+        .help-meaning {
+            margin-top: 0.8rem;
+            padding: 0.8rem;
+            border-radius: 12px;
+            background: #fff7f7;
+            border: 1px solid rgba(128, 0, 0, 0.14);
+            color: #333;
+        }
+
+        .help-close {
+            margin-top: 1rem;
+            border: none;
+            border-radius: 999px;
+            padding: 0.75rem 1rem;
+            background: linear-gradient(135deg, #800000, #a02c2c);
+            color: #fff;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: 0 10px 20px rgba(128, 0, 0, 0.16);
+        }
+
+        @media (max-width: 768px) {
+            .page-footer {
+                border-radius: 20px;
+                padding: 0.9rem;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -39,6 +234,37 @@
         </div>
         <h1>CSS PlayGround</h1>
     </div>
+
+    <button class="help-fab" id="helpBtn" aria-label="Open help">?</button>
+    <div class="help-modal" id="helpModal">
+        <div class="help-modal-content">
+            <h2><i class="bi bi-lightbulb"></i> How to use this playground</h2>
+            <p>Choose any card below to explore a CSS concept step by step.</p>
+            <ol>
+                <li>Open a module to see the live preview and the available controls.</li>
+                <li>Adjust the sliders, colors, and options to experiment with styles.</li>
+                <li>Use the generated CSS as a starting point for your own projects.</li>
+            </ol>
+            <div class="help-meaning">
+                <strong>What each part does:</strong><br>
+                <em>Cards:</em> represent each CSS topic such as box modeling, text styling, filters, and animation.<br>
+                <em>Buttons:</em> open the selected module page.<br>
+                <em>Footer links:</em> connect you to LinkedIn, email, GitHub, and the repository.<br>
+                <strong>CSS property meaning:</strong> <em>display: flex</em> arranges items in a flexible layout, while <em>transition</em> makes hover changes smooth and animated.
+            </div>
+            <button class="help-close" id="helpClose">OK, Understood!</button>
+        </div>
+    </div>
+
+    <section class="hero-summary">
+        <div class="hero-pill">Interactive CSS Playground</div>
+        <h2>Learn, experiment, and copy CSS in one place</h2>
+        <p>Explore box modeling, text styling, filters, and animation with live previews, guided help, and polished controls.</p>
+        <div class="help-hint">
+            <i class="bi bi-question-circle-fill"></i>
+            Press the question mark button on this page and on all pages to see what happens in that page.
+        </div>
+    </section>
 
     <!-- Rest of your feature cards section... -->
     <!-- Features Section -->
@@ -111,6 +337,16 @@
     </div>
 
 
+    <footer class="page-footer">
+        <div class="social-links">
+            <a class="social-link" href="https://www.linkedin.com/in/vijeth-shetty-334s/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" data-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+            <a class="social-link" href="mailto:vijethshetty334@gmail.com" aria-label="Email" data-label="Email"><i class="bi bi-envelope-fill"></i></a>
+            <a class="social-link" href="https://github.com/vijeth-s/" target="_blank" rel="noopener noreferrer" aria-label="GitHub" data-label="GitHub"><i class="bi bi-github"></i></a>
+            <a class="social-link" href="https://github.com/vijeth-s/CSS-PlayGround" target="_blank" rel="noopener noreferrer" aria-label="Repo" data-label="Repo"><i class="bi bi-box-seam"></i></a>
+        </div>
+        <span class="footer-text"><span class="footer-name">Vijeth</span> © 2026</span>
+    </footer>
+
     <script>
         // Position emojis in a circular orbit around the header
         const emojis = document.querySelectorAll('.emoji');
@@ -124,6 +360,25 @@
 
             emoji.style.left = `calc(50% + ${x}px)`;
             emoji.style.top = `calc(50% + ${y}px)`;
+        });
+
+        const helpBtn = document.getElementById('helpBtn');
+        const helpModal = document.getElementById('helpModal');
+        const helpClose = document.getElementById('helpClose');
+
+        helpBtn.addEventListener('click', () => {
+            helpModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        helpClose.addEventListener('click', () => {
+            helpModal.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+        helpModal.addEventListener('click', (event) => {
+            if (event.target === helpModal) {
+                helpModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
         });
     </script>
 </body>
