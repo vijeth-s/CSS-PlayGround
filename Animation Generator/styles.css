@@ -1,33 +1,80 @@
 body {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     min-height: 100vh;
     margin: 0;
-    background-color: #f4f4f4;
-    font-family: Arial, sans-serif;
+    background:
+        radial-gradient(circle at top left, rgba(102, 126, 234, 0.24), transparent 24%),
+        radial-gradient(circle at bottom right, rgba(255, 139, 94, 0.2), transparent 20%),
+        linear-gradient(135deg, #f8fbff 0%, #eef4ff 45%, #fdf7f1 100%);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 22px 0 40px;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.3) 45%, transparent 100%);
+    pointer-events: none;
 }
 
 .main-container {
-    width: 90%;
-    max-width: 1200px;
-    background: white;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+    width: min(1200px, calc(100% - 2rem));
+    background: rgba(255, 255, 255, 0.84);
+    padding: 22px;
+    box-shadow: 0 24px 70px rgba(24, 39, 75, 0.16);
+    border-radius: 28px;
+    border: 1px solid rgba(102, 126, 234, 0.12);
+    backdrop-filter: blur(18px);
+    position: relative;
+    overflow: visible;
+}
+
+.main-container::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(102,126,234,0.06), transparent 45%, rgba(255,139,94,0.06));
+    pointer-events: none;
 }
 
 .navigation-bar {
-    background-color: #800000;
-    /*Marooncolor*/
+    background: linear-gradient(135deg, #6b2db3 0%, #3b82f6 45%, #4f46e5 100%);
     width: 100%;
-    padding: 12px 0;
+    padding: 16px 0;
     margin-bottom: 20px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    -ms-border-radius: 5px;
-    -o-border-radius: 5px;
-    border-radius: 5px;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 16px 35px rgba(59, 130, 246, 0.2);
+}
+
+.navigation-bar::before,
+.navigation-bar::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(20px);
+    opacity: 0.5;
+}
+
+.navigation-bar::before {
+    width: 140px;
+    height: 140px;
+    top: -40px;
+    right: -30px;
+    background: rgba(255,255,255,0.2);
+}
+
+.navigation-bar::after {
+    width: 100px;
+    height: 100px;
+    left: -20px;
+    bottom: -20px;
+    background: rgba(255,255,255,0.16);
 }
 
 .nav-content {
@@ -36,6 +83,8 @@ body {
     justify-content: space-between;
     padding: 0 20px;
     font-variant: small-caps;
+    position: relative;
+    z-index: 1;
 }
 
 .home-link {
@@ -46,10 +95,15 @@ body {
     align-items: center;
     gap: 8px;
     width: fit-content;
+    padding: 0.5rem 0.8rem;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.16);
+    backdrop-filter: blur(8px);
 }
 
 .home-link:hover {
-    color: #f0f0f0;
+    color: white;
+    transform: translateY(-1px);
 }
 
 .nav-title {
@@ -59,6 +113,7 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
+    font-weight: 700;
 }
 
 .nav-title i {
@@ -79,21 +134,29 @@ body {
     justify-content: center;
     align-items: center;
     height: 300px;
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    background-color: #f9f9f9;
+    border: 1px solid rgba(102, 126, 234, 0.15);
+    border-radius: 24px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(238,244,255,0.9));
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.04);
 }
 
 .animated-object {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background-color: maroon;
+    width: 110px;
+    height: 110px;
+    border-radius: 28px;
+    background: linear-gradient(135deg, #7c3aed, #ec4899);
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 40px;
+    font-size: 44px;
     color: white;
+    box-shadow: 0 18px 35px rgba(124, 58, 237, 0.3);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
 }
 
 .code-container {
@@ -103,35 +166,49 @@ body {
     flex-direction: column;
 }
 
+.code-container textarea,
+.control-item input,
+.control-item select {
+    border: 1px solid rgba(102, 126, 234, 0.14);
+    border-radius: 14px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.04);
+    padding: 0.8rem;
+    background: rgba(255,255,255,0.95);
+}
+
 label {
     margin-bottom: 8px;
-    font-weight: bold;
-    color: maroon;
+    font-weight: 700;
+    color: #5b21b6;
 }
 
 .css-code {
     height: 250px;
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    padding: 10px;
-    font-family: monospace;
+    border: 1px solid rgba(102, 126, 234, 0.14);
+    border-radius: 16px;
+    background: #0f172a;
+    color: #f8fafc;
+    padding: 12px;
+    font-family: 'Cascadia Code', Consolas, monospace;
     overflow-y: auto;
+    box-shadow: inset 0 1px 16px rgba(0,0,0,0.18);
 }
 
 .copy-button {
     margin-top: 10px;
-    padding: 8px;
-    background-color: maroon;
+    padding: 10px 12px;
+    background: linear-gradient(135deg, #7c3aed, #ec4899);
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 999px;
     cursor: pointer;
     width: 100%;
+    font-weight: 600;
+    box-shadow: 0 12px 26px rgba(124, 58, 237, 0.2);
 }
 
 .copy-button:hover {
-    background-color: #480808;
+    transform: translateY(-2px);
 }
 
 .controls {
@@ -144,15 +221,21 @@ label {
 .control-item {
     display: flex;
     flex-direction: column;
+    background: linear-gradient(135deg, rgba(255,255,255,0.92), rgba(239,244,255,0.9));
+    border-radius: 18px;
+    padding: 12px;
+    box-shadow: 0 10px 24px rgba(24, 39, 75, 0.06);
+    border: 1px solid rgba(102, 126, 234, 0.1);
 }
 
 .keyframes-section {
-    margin-top: 20px;
+    margin-top: 24px;
     font-size: 20px;
-    font-weight: bolder;
+    font-weight: 800;
     text-align: center;
-    color: maroon;
-    text-decoration: wavy underline;
+    color: #5b21b6;
+    text-decoration: underline;
+    text-underline-offset: 6px;
 }
 
 .keyframe-controls {
@@ -183,20 +266,20 @@ label {
 .keyframe-item input,
 .keyframe-item select {
     flex: 1;
-    padding: 5px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    padding: 8px;
+    border: 1px solid rgba(102, 126, 234, 0.14);
+    border-radius: 10px;
 }
 
 .keyframe-item button {
-    padding: 5px 10px;
-    background-color: #ff4d4d;
+    padding: 7px 10px;
+    background: linear-gradient(135deg, #ef4444, #dc2626);
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 999px;
     cursor: pointer;
 }
 
 .keyframe-item button:hover {
-    background-color: #cc0000;
+    transform: translateY(-1px);
 }
