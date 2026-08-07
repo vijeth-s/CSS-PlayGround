@@ -11,7 +11,6 @@
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)
 ![Responsive](https://img.shields.io/badge/Responsive-Yes-success?style=for-the-badge)
-![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)
 
 ### 🌐 Live Demo (Previous Version)
 https://vijeth-shetty.github.io/CSS-Playground-Interactive-Learning-and-Code-Generator/
